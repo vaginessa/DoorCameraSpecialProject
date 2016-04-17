@@ -1,6 +1,7 @@
 package vadymshevchenko.com.doorcameraandroidspecialproject;
 
 import android.content.ComponentName;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,28 +15,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button button_start = (Button) findViewById(R.id.start_service);
-       /* button_start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PackageManager pm = MainActivity.this.getPackageManager();
-                ComponentName componentName = new ComponentName(MainActivity.this, PowerReceiver.class);
-                pm.setComponentEnabledSetting(componentName,
-                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                        PackageManager.DONT_KILL_APP);
-                Toast.makeText(getApplicationContext(), "activated", Toast.LENGTH_LONG).show();
-            }
-        });
-*/
-        Button button_stop = (Button) findViewById(R.id.stop_service);
-       /* button_stop.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-
-            }
-        });*/
     }
 
 
@@ -55,5 +34,13 @@ public class MainActivity extends AppCompatActivity {
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                 PackageManager.DONT_KILL_APP);
         Toast.makeText(getApplicationContext(), "Приложение выключено!", Toast.LENGTH_LONG).show();
+    }
+
+    public void clickOnSettings(View view) {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    }
+
+    public void clickOnHistory(View view) {
     }
 }
