@@ -6,4 +6,6 @@
     <string name="main_text">Camera Door Application!</string>
     <string name="switch1">Automatically starting an Android application on boot</string>
     <string name="imageDescription">logo</string>
+    <string name="settings">Settings</string>
+    <string name="history">History</string>
 </resources>

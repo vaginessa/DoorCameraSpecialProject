@@ -1,4 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="2"
+    tools:context="vadymshevchenko.com.doorcameraandroidspecialproject.MainActivity"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="0"
+        android:layout_column="0"
+        android:layout_columnSpan="2"
+        android:typeface="sans"
+        android:text="@string/main_text"
+        android:id="@+id/textView"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:layout_gravity="center" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="1"
+        android:layout_column="0"
+        android:layout_columnSpan="2"
+        android:id="@+id/imageView"
+        android:contentDescription="@string/imageDescription"
+        android:src="@drawable/frontdoorcamera"/>
+
+    <Button
+        android:id="@+id/start_service"
+        android:text="@string/start_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="200dp"
+        android:minHeight="55dp"
+        android:theme="@style/StartButton"
+        android:onClick="clickOnStartService"
+        android:layout_row="2"
+        android:layout_column="0"
+        android:layout_columnSpan="2"
+        android:layout_gravity="center_horizontal"
+         />
+
+    <Button
+        android:id="@+id/stop_service"
+        android:text="@string/stop_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="200dp"
+        android:minHeight="55dp"
+        android:theme="@style/StopButton"
+        android:onClick="clickOnStopService"
+        android:layout_row="3"
+        android:layout_column="0"
+        android:layout_columnSpan="2"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="50dp"
+
+        />
+
+    <Button
+        android:id="@+id/settings"
+        android:text="@string/settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clickOnSettings"
+        android:layout_row="4"
+        android:layout_column="0"
+        android:layout_columnWeight="1"
+
+        />
+
+    <Button
+        android:id="@+id/history"
+        android:text="@string/history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clickOnHistory"
+        android:layout_row="4"
+        android:layout_column="1"
+        android:layout_columnWeight="1"
+
+
+        />
+
+
+    </GridLayout>
+
+<!--
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -34,32 +126,26 @@
     <Button
         android:id="@+id/start_service"
         android:text="@string/start_service"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
-        android:layout_width="270dp"
-        android:layout_height="60dp"
-        android:background="@drawable/start_button"
-        android:shadowColor="#5C76A8"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="5"
-        android:onClick="clickOnstartService"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="200dp"
+        android:minHeight="55dp"
+        android:theme="@style/StartButton"
+        android:onClick="clickOnStartService"
         android:layout_below="@+id/imageView"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true" />
 
+
+
     <Button
         android:id="@+id/stop_service"
         android:text="@string/stop_service"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
-        android:layout_width="270dp"
-        android:layout_height="60dp"
-        android:background="@drawable/stop_button"
-        android:shadowColor="#5C76A8"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="200dp"
+        android:minHeight="55dp"
+        android:theme="@style/StopButton"
         android:onClick="clickOnStopService"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/start_service"
@@ -83,3 +169,4 @@
 
 
 </RelativeLayout>
+-->
