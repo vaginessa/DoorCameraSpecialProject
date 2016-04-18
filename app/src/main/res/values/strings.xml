@@ -12,4 +12,5 @@
     <string name="switchBackground">Start the app in background</string>
     <string name="EditDescr">Write your link to camera</string>
     <string name="save">Save</string>
+    <string name="editText">Link for open:</string>
 </resources>

@@ -12,60 +12,51 @@
 
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:typeface="sans"
-        android:text="@string/SettingsStart"
-        android:id="@+id/textView"
+        android:text="@string/switchBackground"
+        android:id="@+id/textView1"
         android:textSize="15sp"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/switchStart"
         android:layout_margin="10dp"
-         />
+        android:layout_alignParentLeft="true"
+        android:layout_gravity="center_vertical"
+        />
 
     <Switch
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/switchStart"
+        android:id="@+id/switchBackground"
         android:layout_alignParentRight="true"
         android:layout_margin="10dp"
-        android:onClick="onSwitchClickedStartBoot"
+        android:onClick="onSwitchClickedStartBackground"
+        android:layout_gravity="center_vertical"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:typeface="sans"
-        android:text="@string/switchBackground"
-        android:id="@+id/textView1"
+        android:text="@string/editText"
+        android:id="@+id/textView2"
         android:textSize="15sp"
-        android:layout_below="@id/textView"
+        android:layout_below="@id/textView1"
+        android:layout_margin="10dp"
         android:layout_alignParentLeft="true"
-        android:layout_margin="10dp"
-        />
-
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/switchBackground"
-        android:layout_below="@id/switchStart"
-        android:layout_alignParentRight="true"
-        android:layout_toRightOf="@id/textView1"
-        android:layout_margin="10dp"
-        android:onClick="onSwitchClickedStartBackground"
+        android:layout_centerInParent="true"
         />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPostalAddress"
-        android:ems="20"
         android:id="@+id/editText"
         android:hint="@string/EditDescr"
         android:layout_below="@id/textView1"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="10dp"
-        />
+        android:layout_toRightOf="@+id/textView2"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+         />
 
     <Button
         android:id="@+id/save"
