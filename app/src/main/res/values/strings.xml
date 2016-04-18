@@ -8,4 +8,8 @@
     <string name="imageDescription">logo</string>
     <string name="settings">Settings</string>
     <string name="history">History</string>
+    <string name="SettingsStart">Start an Application on startup</string>
+    <string name="switchBackground">Start the app in background</string>
+    <string name="EditDescr">Write your link to camera</string>
+    <string name="save">Save</string>
 </resources>
