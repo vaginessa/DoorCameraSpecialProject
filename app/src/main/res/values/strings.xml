@@ -13,4 +13,5 @@
     <string name="EditDescr">Write your link to camera</string>
     <string name="save">Save</string>
     <string name="editText">Link for open:</string>
+    <string name="title_activity_history">HistoryActivity</string>
 </resources>
