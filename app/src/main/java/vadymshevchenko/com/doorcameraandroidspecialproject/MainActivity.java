@@ -76,5 +76,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickOnHistory(View view) {
+        Intent intent = new Intent(this, HistoryActivity.class);
+        startActivity(intent);
     }
 }
