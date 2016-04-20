@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:columnCount="2"
+    android:rowCount="4"
     tools:context="vadymshevchenko.com.doorcameraandroidspecialproject.MainActivity"
     >
 
@@ -18,7 +19,8 @@
         android:id="@+id/textView"
         android:layout_marginTop="10dp"
         android:textSize="20sp"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        />
 
     <ImageView
         android:layout_width="220dp"
@@ -42,8 +44,8 @@
         android:onClick="clickOnStartService"
         android:layout_row="1"
         android:layout_column="1"
+        android:layout_marginTop="70dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
         />
 
     <Button
@@ -70,7 +72,7 @@
         android:layout_row="3"
         android:layout_column="0"
         android:layout_columnWeight="1"
-
+        android:layout_gravity="fill_horizontal"
         />
 
     <Button
@@ -82,6 +84,7 @@
         android:layout_row="3"
         android:layout_column="1"
         android:layout_columnWeight="1"
+        android:layout_gravity="fill_horizontal"
         />
 
 

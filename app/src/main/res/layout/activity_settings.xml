@@ -59,6 +59,16 @@
          />
 
     <Button
+        android:id="@+id/delete"
+        android:text="@string/removeData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clickOnRemoveDB"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/editText"
+        />
+
+    <Button
         android:id="@+id/save"
         android:text="@string/save"
         android:layout_width="match_parent"

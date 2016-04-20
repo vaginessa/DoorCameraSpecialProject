@@ -1,5 +1,6 @@
 package vadymshevchenko.com.doorcameraandroidspecialproject;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -29,7 +30,14 @@ public class DoorCameraDatabaseHelper extends SQLiteOpenHelper {
             db.execSQL("CREATE TABLE " + TABLE_NAME + " (" +
                     "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "DATE INTEGER);");
+            insertData(db, new java.util.Date().getTime());
         }
+    }
+
+    private static void insertData(SQLiteDatabase db, Long date) {
+        ContentValues cv = new ContentValues();
+        cv.put("DATE", date);
+        db.insert(DoorCameraDatabaseHelper.TABLE_NAME, null, cv);
     }
 
 }

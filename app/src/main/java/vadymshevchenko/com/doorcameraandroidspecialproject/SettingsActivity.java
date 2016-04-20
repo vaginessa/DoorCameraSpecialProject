@@ -2,8 +2,12 @@ package vadymshevchenko.com.doorcameraandroidspecialproject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -36,14 +40,14 @@ public class SettingsActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        
+
         // load data from SharedPreferences
         if (mSettings.contains(APP_PREFERENCES_RUNBACKGROUND)) {
             isRunBackground = mSettings.getBoolean(APP_PREFERENCES_RUNBACKGROUND, true);
         }
         if (mSettings.contains(APP_PREFERENCES_LINKTOWEB)) {
             linkToWeb = mSettings.getString(APP_PREFERENCES_LINKTOWEB, "");
-        } 
+        }
         switchBackground.setChecked(isRunBackground);
         editTextLinkToWeb.setText(linkToWeb);
     }
@@ -63,8 +67,40 @@ public class SettingsActivity extends Activity {
         isRunBackground = ((Switch) view).isChecked();
     }
 
+    public void clickOnRemoveDB(View view) {
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        clearDataBase();
+                        Toast.makeText(SettingsActivity.this, "DataBase successfully cleared!", Toast.LENGTH_SHORT).show();
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        builder.setMessage("Are you sure you want to clear history from database?").setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show();
+    }
+
     public void clickOnSave(View view) {
         finish();
         Toast.makeText(SettingsActivity.this, "Settings save! You should stop/start application for changes take effect", Toast.LENGTH_LONG).show();
     }
+
+    private void clearDataBase() {
+        try {
+            DoorCameraDatabaseHelper doorCameraDatabaseHelper = new DoorCameraDatabaseHelper(this);
+            SQLiteDatabase db = doorCameraDatabaseHelper.getWritableDatabase();
+            db.delete(DoorCameraDatabaseHelper.TABLE_NAME, null, null);
+            db.close();
+        } catch (SQLiteException e) {
+            Toast.makeText(SettingsActivity.this, "Something went wrong with DataBase", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
