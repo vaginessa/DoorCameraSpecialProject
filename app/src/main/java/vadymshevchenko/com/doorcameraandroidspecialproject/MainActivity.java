@@ -10,17 +10,20 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String DISABLE_ENABLE_SERVICE = "DISABLE_ENABLE_SERVICE";
     private SharedPreferences mSettings;
+    private Button startService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        startService = (Button) findViewById(R.id.start_service);
         mSettings = getSharedPreferences(SettingsActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
     }
 
@@ -39,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = mSettings.edit();
         editor.putBoolean(DISABLE_ENABLE_SERVICE, true);
         editor.apply();
+        startService.setText("Service is working!");
         Toast.makeText(getApplicationContext(), "Application is working!", Toast.LENGTH_SHORT).show();
     }
 
@@ -57,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = mSettings.edit();
                         editor.putBoolean(DISABLE_ENABLE_SERVICE, false);
                         editor.apply();
+                        startService.setText(getString(R.string.start_service));
                         Toast.makeText(getApplicationContext(), "Application has stopped working!", Toast.LENGTH_SHORT).show();
                         break;
                     case DialogInterface.BUTTON_NEGATIVE:
