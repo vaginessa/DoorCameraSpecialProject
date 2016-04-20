@@ -17,7 +17,6 @@ public class SettingsActivity extends Activity {
 
     // имя файла настройки
     public static final String APP_PREFERENCES = "mysettings";
-    public static final String APP_PREFERENCES_STARTBOOT = "STARTBOOT";
     public static final String APP_PREFERENCES_RUNBACKGROUND = "RUNBACKGROUND";
     public static final String APP_PREFERENCES_LINKTOWEB = "LINKTOWEB";
     private SharedPreferences mSettings;

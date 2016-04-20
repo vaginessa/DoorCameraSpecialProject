@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.widget.Toast;
 
+import java.util.Date;
+
 public class PowerReceiver extends BroadcastReceiver {
 
     private SharedPreferences mSettings;
@@ -19,13 +21,17 @@ public class PowerReceiver extends BroadcastReceiver {
         // Если не будет работать, значит метод отыгрывает больше чем 5 сек, и я должен
         // запускать сервис, который будет выполянуть эту работу
 
+        mSettings = context.getSharedPreferences(SettingsActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
         boolean isServiceWorking = false;
         if (mSettings.contains(MainActivity.DISABLE_ENABLE_SERVICE)) {
             isServiceWorking = mSettings.getBoolean(MainActivity.DISABLE_ENABLE_SERVICE, true);
         }
         if (isServiceWorking && intent.getAction().equalsIgnoreCase("android.intent.action.ACTION_POWER_DISCONNECTED")) {
-            String message = "Power is disconnected, someone is coming - run the browser";
+            Intent service = new Intent(context, UpdateDataBaseService.class);
+            service.putExtra(UpdateDataBaseService.TIME, new Date().getTime());
+            context.startService(service);
 
+            String message = "Power is disconnected, someone is coming - run the browser";
             Toast.makeText(context, message, Toast.LENGTH_LONG).show();
 
             String linkForOpen = "http://www.google.com";
