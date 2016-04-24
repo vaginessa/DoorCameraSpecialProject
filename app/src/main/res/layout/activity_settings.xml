@@ -29,7 +29,6 @@
         android:id="@+id/switchBackground"
         android:layout_alignParentRight="true"
         android:layout_margin="10dp"
-        android:onClick="onSwitchClickedStartBackground"
         android:layout_gravity="center_vertical"
         />
 
