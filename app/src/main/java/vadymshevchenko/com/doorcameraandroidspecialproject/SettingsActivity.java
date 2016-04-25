@@ -56,14 +56,11 @@ public class SettingsActivity extends AppCompatActivity {
         super.onPause();
         // Запоминаем данные
         SharedPreferences.Editor editor = mSettings.edit();
+        isRunBackground = switchBackground.isChecked();
         editor.putBoolean(APP_PREFERENCES_RUNBACKGROUND, isRunBackground);
         linkToWeb = editTextLinkToWeb.getText().toString();
         editor.putString(APP_PREFERENCES_LINKTOWEB, linkToWeb);
         editor.apply();
-    }
-
-    public void onSwitchClickedStartBackground(View view) {
-        isRunBackground = ((Switch) view).isChecked();
     }
 
     public void clickOnRemoveDB(View view) {
