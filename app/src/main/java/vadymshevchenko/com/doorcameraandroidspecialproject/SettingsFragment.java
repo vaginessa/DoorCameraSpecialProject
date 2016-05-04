@@ -8,6 +8,9 @@ import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SettingsFragment extends Fragment implements View.OnClickListener {
 
@@ -44,6 +50,16 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
             mSettings = this.getActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
             switchBackground = (Switch) getActivity().findViewById(R.id.switchBackground);
             editTextLinkToWeb = (EditText) getActivity().findViewById(R.id.editText);
+            editTextLinkToWeb.addTextChangedListener(new TextWatcher() {
+                public void afterTextChanged(Editable s) {
+                    if (!isValidUrl(s.toString())) {
+                        String invalid = "Invalid Url";
+                        editTextLinkToWeb.setError(invalid);
+                    }
+                }
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+                public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            });
             Button save = (Button) getActivity().findViewById(R.id.save);
             Button deleteFromDB = (Button) getActivity().findViewById(R.id.delete);
 
@@ -124,5 +140,14 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                 clickOnRemoveDB(view);
                 break;
         }
+    }
+
+    private boolean isValidUrl(String url) {
+        Pattern p = Patterns.WEB_URL;
+        Matcher m = p.matcher(url);
+        if(m.matches())
+            return true;
+        else
+            return false;
     }
 }
