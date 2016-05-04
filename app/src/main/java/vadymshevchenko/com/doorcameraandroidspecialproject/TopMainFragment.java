@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,6 +42,9 @@ public class TopMainFragment extends Fragment implements View.OnClickListener {
             Button settingsButton = (Button) getActivity().findViewById(R.id.settings);
             Button historyButton = (Button) getActivity().findViewById(R.id.history);
 
+            buttonStartServiceInDefault();
+            stopService.getBackground().setColorFilter(0xFFCC3333, PorterDuff.Mode.MULTIPLY);
+
             startService.setOnClickListener(this);
             stopService.setOnClickListener(this);
 
@@ -53,7 +57,12 @@ public class TopMainFragment extends Fragment implements View.OnClickListener {
     public void onResume() {
         super.onResume();
         if (mSettings.contains(TEXT_START_BUTTON)) {
-            startService.setText(mSettings.getString(TEXT_START_BUTTON, ""));
+            String textOnButton = mSettings.getString(TEXT_START_BUTTON, "");
+            startService.setText(textOnButton);
+            if(textOnButton.equals("Service is working!")){
+                buttonStartServiceWorking();
+            }
+
         }
     }
 
@@ -83,7 +92,7 @@ public class TopMainFragment extends Fragment implements View.OnClickListener {
         editor.putBoolean(DISABLE_ENABLE_SERVICE, true);
         editor.putString(TEXT_START_BUTTON, getString(R.string.service_working));
         editor.apply();
-        startService.setText(getString(R.string.service_working));
+        buttonStartServiceWorking();
         Toast.makeText(view.getContext(), "Application is working!", Toast.LENGTH_SHORT).show();
     }
 
@@ -97,7 +106,7 @@ public class TopMainFragment extends Fragment implements View.OnClickListener {
                         editor.putBoolean(DISABLE_ENABLE_SERVICE, false);
                         editor.putString(TEXT_START_BUTTON, getString(R.string.start_service));
                         editor.apply();
-                        startService.setText(getString(R.string.start_service));
+                        buttonStartServiceInDefault();
                         Toast.makeText(view.getContext(), "Application has stopped working!", Toast.LENGTH_SHORT).show();
                         break;
                     case DialogInterface.BUTTON_NEGATIVE:
@@ -109,6 +118,16 @@ public class TopMainFragment extends Fragment implements View.OnClickListener {
         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
         builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
                 .setNegativeButton("No", dialogClickListener).show();
+    }
+
+    private void buttonStartServiceWorking() {
+        startService.setText(getString(R.string.service_working));
+        startService.getBackground().setColorFilter(0xFF99CC00, PorterDuff.Mode.MULTIPLY);
+    }
+
+    private void buttonStartServiceInDefault() {
+        startService.setText(getString(R.string.start_service));
+        startService.getBackground().setColorFilter(0xFFBBAA00, PorterDuff.Mode.MULTIPLY);
     }
 
     @Override
