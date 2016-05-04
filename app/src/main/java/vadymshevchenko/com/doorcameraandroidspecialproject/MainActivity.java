@@ -1,104 +1,155 @@
 package vadymshevchenko.com.doorcameraandroidspecialproject;
 
-import android.app.ActionBar;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 public class MainActivity extends Activity {
 
-    public static final String DISABLE_ENABLE_SERVICE = "DISABLE_ENABLE_SERVICE";
-    private static final String TEXT_START_BUTTON = "Start service!";
-    private SharedPreferences mSettings;
-    private Button startService;
+    private String[] titles;
+    private ListView drawerList;
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle drawerToggle;
+    private int currentPosition = 0;
+    private final String POSITION = "position";
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            selectItem(position);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        startService = (Button) findViewById(R.id.start_service);
-        mSettings = getSharedPreferences(SettingsActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (mSettings.contains(TEXT_START_BUTTON)) {
-            startService.setText(mSettings.getString(TEXT_START_BUTTON, ""));
-        }
-    }
+        titles = getResources().getStringArray(R.array.titles);
+        drawerList = (ListView) findViewById(R.id.drawer);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerList.setAdapter(new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_activated_1, titles));
+        drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        SharedPreferences.Editor editor = mSettings.edit();
-        editor.putString(TEXT_START_BUTTON, startService.getText().toString());
-        editor.apply();
-    }
-
-    public void clickOnStartService(View view) {
-        PackageManager pm = MainActivity.this.getPackageManager();
-        ComponentName componentName = new ComponentName(MainActivity.this, PowerReceiver.class);
-        if(SettingsActivity.isRunBackground) {
-            Log.v("MainActivity", "Run background application");
-            pm.setComponentEnabledSetting(componentName,
-                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                    PackageManager.DONT_KILL_APP);
+        if (savedInstanceState != null) {
+            currentPosition = savedInstanceState.getInt(POSITION);
+            setActionBarTitle(currentPosition);
         } else {
-            Log.v("MainActivity", "Don't run background application");
-            pm.setComponentEnabledSetting(componentName,
-                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                    PackageManager.DONT_KILL_APP);
+            selectItem(0);
         }
-        SharedPreferences.Editor editor = mSettings.edit();
-        editor.putBoolean(DISABLE_ENABLE_SERVICE, true);
-        editor.putString(TEXT_START_BUTTON, getString(R.string.service_working));
-        editor.apply();
-        startService.setText(getString(R.string.service_working));
-        Toast.makeText(getApplicationContext(), "Application is working!", Toast.LENGTH_SHORT).show();
-    }
 
-    public void clickOnStopService(View view) {
-        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
+                R.string.open_drawer, R.string.close_drawer) {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which){
-                    case DialogInterface.BUTTON_POSITIVE:
-                        SharedPreferences.Editor editor = mSettings.edit();
-                        editor.putBoolean(DISABLE_ENABLE_SERVICE, false);
-                        editor.putString(TEXT_START_BUTTON, getString(R.string.start_service));
-                        editor.apply();
-                        startService.setText(getString(R.string.start_service));
-                        Toast.makeText(getApplicationContext(), "Application has stopped working!", Toast.LENGTH_SHORT).show();
-                        break;
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        break;
-                }
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                invalidateOptionsMenu();
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                invalidateOptionsMenu();
             }
         };
+        drawerLayout.addDrawerListener(drawerToggle);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-        builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
-                .setNegativeButton("No", dialogClickListener).show();
+        getFragmentManager().addOnBackStackChangedListener(
+                new FragmentManager.OnBackStackChangedListener() {
+                    @Override
+                    public void onBackStackChanged() {
+                        FragmentManager fragMan = getFragmentManager();
+                        Fragment fragment = fragMan.findFragmentByTag("visible_fragment");
+                        if (fragment instanceof TopMainFragment) {
+                            currentPosition = 0;
+                        }
+                        if (fragment instanceof SettingsFragment) {
+                            currentPosition = 1;
+                        }
+                        if (fragment instanceof HistoryFragment) {
+                            currentPosition = 2;
+                        }
+                        setActionBarTitle(currentPosition);
+                        drawerList.setItemChecked(currentPosition, true);
+                    }
+                }
+        );
+
     }
 
-    public void clickOnSettings(View view) {
-        Intent intent = new Intent(this, SettingsActivity.class);
-        startActivity(intent);
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        drawerToggle.syncState();
     }
 
-    public void clickOnHistory(View view) {
-        Intent intent = new Intent(this, HistoryActivity.class);
-        startActivity(intent);
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        drawerToggle.onConfigurationChanged(newConfig);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        if (drawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void selectItem(int position) {
+        // Обновление информации на экране посредством замены фhагментов
+        Fragment fragment;
+        switch(position) {
+            case 1:
+                fragment = new SettingsFragment();
+                break;
+            case 2:
+                fragment = new HistoryFragment();
+                break;
+            default:
+                fragment = new TopMainFragment();
+        }
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.content_frame, fragment, "visible_fragment");
+        ft.addToBackStack(null);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        ft.commit();
+        setActionBarTitle(position);
+        drawerLayout.closeDrawer(drawerList);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(POSITION, currentPosition);
+    }
+
+    private void setActionBarTitle(int position) {
+        String title;
+        if (position == 0){
+            title = getResources().getString(R.string.app_name);
+        } else {
+            title = titles[position];
+        }
+        getActionBar().setTitle(title);
+    }
+
 }

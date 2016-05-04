@@ -18,10 +18,10 @@ public class PowerReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.v("PowerReceiver", "Get the receiver message!");
-        mSettings = context.getSharedPreferences(SettingsActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
+        mSettings = context.getSharedPreferences(SettingsFragment.APP_PREFERENCES, Context.MODE_PRIVATE);
         boolean isServiceWorking = false;
-        if (mSettings.contains(MainActivity.DISABLE_ENABLE_SERVICE)) {
-            isServiceWorking = mSettings.getBoolean(MainActivity.DISABLE_ENABLE_SERVICE, true);
+        if (mSettings.contains(TopMainFragment.DISABLE_ENABLE_SERVICE)) {
+            isServiceWorking = mSettings.getBoolean(TopMainFragment.DISABLE_ENABLE_SERVICE, true);
         }
         if (isServiceWorking && intent.getAction().equalsIgnoreCase("android.intent.action.ACTION_POWER_DISCONNECTED")) {
             Log.v("PowerReceiver", "Start service with different jobs!");

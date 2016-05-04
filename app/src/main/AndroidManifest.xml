@@ -30,17 +30,6 @@
             </intent-filter>
         </receiver>
 
-        <activity
-            android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".MainActivity"/>
-        <activity
-            android:name=".HistoryActivity"
-            android:label="@string/title_activity_history"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".MainActivity"/>
-
         <service
             android:name=".BackgroundJobService"
             android:exported="false"/>

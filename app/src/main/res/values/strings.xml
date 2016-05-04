@@ -17,4 +17,16 @@
     <string name="removeData">Clear DataBase</string>
     <string name="service_working">Service is working!</string>
     <string name="title_activity_settings">Settings</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_top">Top Main Fragment</string>
+
+    <string name="open_drawer">Open drawer</string>
+    <string name="close_drawer">Close drawer</string>
+
+    <string-array name="titles">
+        <item>Home</item>
+        <item>Settings</item>
+        <item>History</item>
+    </string-array>
 </resources>

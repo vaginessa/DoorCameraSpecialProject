@@ -49,10 +49,10 @@ public class BackgroundJobService extends IntentService {
             public void run() {
                 String message = "Power is disconnected, someone is coming - run the browser";
                 Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-                mSettings = getApplicationContext().getSharedPreferences(SettingsActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
+                mSettings = getApplicationContext().getSharedPreferences(SettingsFragment.APP_PREFERENCES, Context.MODE_PRIVATE);
                 String linkForOpen = "http://www.google.com";
-                if (mSettings.contains(SettingsActivity.APP_PREFERENCES_LINKTOWEB)) {
-                    linkForOpen = mSettings.getString(SettingsActivity.APP_PREFERENCES_LINKTOWEB, "");
+                if (mSettings.contains(SettingsFragment.APP_PREFERENCES_LINKTOWEB)) {
+                    linkForOpen = mSettings.getString(SettingsFragment.APP_PREFERENCES_LINKTOWEB, "");
                 }
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(linkForOpen));
                 browserIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

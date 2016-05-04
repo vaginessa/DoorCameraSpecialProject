@@ -1,16 +1,18 @@
 package vadymshevchenko.com.doorcameraandroidspecialproject;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
-import android.app.ListActivity;
+import android.app.ListFragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CursorAdapter;
-import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,30 +20,24 @@ import android.widget.Toast;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-public class HistoryActivity extends ListActivity {
+public class HistoryFragment extends ListFragment {
 
     private SQLiteDatabase db;
     private Cursor cursor;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        ActionBar actionBar = getActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-        ListView listView = getListView();
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         try {
-            SQLiteOpenHelper starbazzDatabaseHelper = new DoorCameraDatabaseHelper(this);
+            SQLiteOpenHelper starbazzDatabaseHelper = new DoorCameraDatabaseHelper(getActivity());
             db = starbazzDatabaseHelper.getReadableDatabase();
             cursor = db.query(DoorCameraDatabaseHelper.TABLE_NAME,
                     new String[]{"_id", "DATE"},
-                    null, null, null, null, "_id" + " DESC");
+                    null, null, null, null, "_id");
             if (cursor.getCount() == 0) {
-                showDialog();
+                showDialog(inflater.getContext());
             }
-            CursorAdapter listAdapter = new SimpleCursorAdapter(this,
+            CursorAdapter listAdapter = new SimpleCursorAdapter(inflater.getContext(),
                     android.R.layout.simple_list_item_1,
                     cursor,
                     new String[]{"DATE"},
@@ -52,27 +48,33 @@ public class HistoryActivity extends ListActivity {
                     super.setViewText(v, convIntegerToStringDate(v, text));
                 }
             };
-            listView.setAdapter(listAdapter);
+            setListAdapter(listAdapter);
         } catch (SQLiteException e) {
-            Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(inflater.getContext(), "Database unavailable", Toast.LENGTH_SHORT);
             toast.show();
         }
+
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
-        cursor.close();
-        db.close();
+        if (cursor != null) {
+            cursor.close();
+        }
+        if (db != null) {
+            db.close();
+        }
     }
 
-    private void showDialog(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    private void showDialog(Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage("No history data! Empty list!")
                 .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        finish();
+                        getFragmentManager().popBackStack();
                     }
                 });
         AlertDialog alert = builder.create();
@@ -88,5 +90,4 @@ public class HistoryActivity extends ListActivity {
         }
         return text;
     }
-
 }
