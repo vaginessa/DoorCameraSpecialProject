@@ -1,4 +1,4 @@
-package vadymshevchenko.com.doorcameraandroidspecialproject;
+package vadymshevchenko.com.doorcameraandroidspecialproject.fragments;
 
 
 import android.app.AlertDialog;
@@ -17,6 +17,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
+
+import vadymshevchenko.com.doorcameraandroidspecialproject.logic.PowerReceiver;
+import vadymshevchenko.com.doorcameraandroidspecialproject.R;
 
 public class TopMainFragment extends Fragment implements View.OnClickListener {
 
@@ -77,7 +80,11 @@ public class TopMainFragment extends Fragment implements View.OnClickListener {
     public void clickOnStartService(View view) {
         PackageManager pm = getActivity().getPackageManager();
         ComponentName componentName = new ComponentName(getActivity(), PowerReceiver.class);
-        if(SettingsFragment.isRunBackground) {
+        boolean isRunBackground = true;
+        if (mSettings.contains(SettingsFragment.APP_PREFERENCES_RUNBACKGROUND)){
+            isRunBackground = mSettings.getBoolean(SettingsFragment.APP_PREFERENCES_RUNBACKGROUND, true);
+        }
+        if(isRunBackground) {
             Log.v("MainActivity", "Run background application");
             pm.setComponentEnabledSetting(componentName,
                     PackageManager.COMPONENT_ENABLED_STATE_ENABLED,

@@ -1,4 +1,4 @@
-package vadymshevchenko.com.doorcameraandroidspecialproject;
+package vadymshevchenko.com.doorcameraandroidspecialproject.activities;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -13,6 +13,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import vadymshevchenko.com.doorcameraandroidspecialproject.fragments.HistoryFragment;
+import vadymshevchenko.com.doorcameraandroidspecialproject.R;
+import vadymshevchenko.com.doorcameraandroidspecialproject.fragments.SettingsFragment;
+import vadymshevchenko.com.doorcameraandroidspecialproject.fragments.TopMainFragment;
 
 public class MainActivity extends Activity {
 

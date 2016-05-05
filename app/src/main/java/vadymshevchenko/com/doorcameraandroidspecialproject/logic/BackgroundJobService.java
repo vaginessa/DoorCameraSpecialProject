@@ -1,6 +1,5 @@
-package vadymshevchenko.com.doorcameraandroidspecialproject;
+package vadymshevchenko.com.doorcameraandroidspecialproject.logic;
 
-import android.app.Application;
 import android.app.IntentService;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -12,6 +11,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.os.Handler;
 import android.widget.Toast;
+
+import vadymshevchenko.com.doorcameraandroidspecialproject.database.DoorCameraDatabaseHelper;
+import vadymshevchenko.com.doorcameraandroidspecialproject.fragments.SettingsFragment;
 
 public class BackgroundJobService extends IntentService {
 

@@ -1,4 +1,4 @@
-package vadymshevchenko.com.doorcameraandroidspecialproject;
+package vadymshevchenko.com.doorcameraandroidspecialproject.fragments;
 
 import android.app.AlertDialog;
 import android.app.ListFragment;
@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
+import vadymshevchenko.com.doorcameraandroidspecialproject.database.DoorCameraDatabaseHelper;
 
 public class HistoryFragment extends ListFragment {
 

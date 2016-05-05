@@ -24,7 +24,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:columnCount="2"
-    tools:context="vadymshevchenko.com.doorcameraandroidspecialproject.MainActivity"
+    tools:context="vadymshevchenko.com.doorcameraandroidspecialproject.activities.MainActivity"
     >
 
     <TextView

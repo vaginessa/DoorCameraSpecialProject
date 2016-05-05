@@ -1,4 +1,4 @@
-package vadymshevchenko.com.doorcameraandroidspecialproject;
+package vadymshevchenko.com.doorcameraandroidspecialproject.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -11,7 +11,7 @@ public class DoorCameraDatabaseHelper extends SQLiteOpenHelper {
     private static final int DB_VERSION = 1;
     public static final String TABLE_NAME = "CAMERA";
 
-    DoorCameraDatabaseHelper(Context context) {
+    public DoorCameraDatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 

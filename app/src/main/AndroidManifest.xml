@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name">
             <intent-filter>
@@ -22,7 +22,7 @@
         </activity>
 
         <receiver
-            android:name=".PowerReceiver"
+            android:name=".logic.PowerReceiver"
             android:enabled="false"
             android:exported="true">
             <intent-filter>
@@ -31,7 +31,7 @@
         </receiver>
 
         <service
-            android:name=".BackgroundJobService"
+            android:name=".logic.BackgroundJobService"
             android:exported="false"/>
     </application>
 

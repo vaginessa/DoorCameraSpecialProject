@@ -1,4 +1,4 @@
-package vadymshevchenko.com.doorcameraandroidspecialproject;
+package vadymshevchenko.com.doorcameraandroidspecialproject.fragments;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -21,6 +21,9 @@ import android.widget.Toast;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import vadymshevchenko.com.doorcameraandroidspecialproject.database.DoorCameraDatabaseHelper;
+import vadymshevchenko.com.doorcameraandroidspecialproject.R;
 
 public class SettingsFragment extends Fragment implements View.OnClickListener {
 

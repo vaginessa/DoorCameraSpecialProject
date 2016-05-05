@@ -1,4 +1,4 @@
-package vadymshevchenko.com.doorcameraandroidspecialproject;
+package vadymshevchenko.com.doorcameraandroidspecialproject.logic;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,6 +7,9 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import java.util.Date;
+
+import vadymshevchenko.com.doorcameraandroidspecialproject.fragments.SettingsFragment;
+import vadymshevchenko.com.doorcameraandroidspecialproject.fragments.TopMainFragment;
 
 public class PowerReceiver extends BroadcastReceiver {
 
